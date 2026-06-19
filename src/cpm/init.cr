@@ -1,4 +1,4 @@
-module Cpm
+
   class Init
     def init
      process = Process.run(
@@ -15,6 +15,3 @@ module Cpm
      end
    end
  end
-end
-    
-        
