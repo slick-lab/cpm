@@ -24,6 +24,7 @@ module Cli
         pick = results[0]
         cache_result(pick)
         puts "Added #{pick.name} to cache."
+        return pick
       else
         results.each_with_index do |result, i|
           puts "#{i + 1}. #{result.full_name} ★ #{result.stars}"
