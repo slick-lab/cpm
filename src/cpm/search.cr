@@ -70,7 +70,11 @@ module Cli
 
     private def cache_result(result : RepoResult)
       cache_file = Path.home / ".cpm" / "cache.txt"
-      Dir.mkdir_p(Path.home / ".cpm")
+
+      unless File.exists?(cache_file)
+        puts "Cache not found. Run 'cpm init --cache' first."
+        exit 1
+      end
 
       File.open(cache_file, "a") do |file|
         file.puts "#{result.name}\t#{result.url}"
