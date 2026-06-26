@@ -28,5 +28,5 @@ cd ..
 rm -rf "$TMP_DIR"
 
 echo "cpm installed"
-echo "Run 'cpm init --cache' to get started
+echo "Run 'cpm init --cache' to get started"
 
