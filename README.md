@@ -31,10 +31,7 @@ No browser. No copy-paste. No remembering URLs.
 ## Install
 
 ```bash
-git clone https://github.com/slick-lab/cpm
-cd cpm
-shards build cpm
-cp bin/cpm ~/.local/bin/   # or wherever you put binaries
+curl -fsSl https://raw.githubusercontent.com/slick-lab/cpm/main/install.sh | sudo bash
 ```
 
 ---

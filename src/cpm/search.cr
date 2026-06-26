@@ -47,25 +47,30 @@ module Cli
     end
 
     private def search_github(query : String) : Array(RepoResult)
-      url = "#{GITHUB_API}?q=#{URI.encode_path(query)}+language:crystal&sort=stars&per_page=5"
-      
-      response = HTTP::Client.get(url, headers: HTTP::Headers{
-        "User-Agent" => "cpm"
-      })
+      begin
+        url = "#{GITHUB_API}?q=#{URI.encode_path(query)}+language:crystal&sort=stars&per_page=5"
 
-      data = JSON.parse(response.body)
-      items = data["items"]?
+        response = HTTP::Client.get(url, headers: HTTP::Headers{
+          "User-Agent" => "cpm",
+        })
 
-      return [] of RepoResult unless items
+        data = JSON.parse(response.body)
+        items = data["items"]?
 
-      items.as_a.map do |item|
-        RepoResult.new(
-          name: item["name"].as_s,
-          full_name: item["full_name"].as_s,
-          url: item["html_url"].as_s,
-          description: item["description"]?.try(&.as_s) || "",
-          stars: item["stargazers_count"].as_i
-        )
+        return [] of RepoResult unless items
+
+        items.as_a.map do |item|
+          RepoResult.new(
+            name: item["name"].as_s,
+            full_name: item["full_name"].as_s,
+            url: item["html_url"].as_s,
+            description: item["description"]?.try(&.as_s) || "",
+            stars: item["stargazers_count"].as_i
+          )
+        end
+      rescue ex
+        puts "an error occurred #{ex.message}"
+        return [] of RepoResult
       end
     end
 

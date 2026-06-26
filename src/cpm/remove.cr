@@ -23,13 +23,13 @@ module Cli
         exit 1
       end
 
-      unless deps.has_key?(YAML.new(package))
+      unless deps.has_key?(YAML::Any.new(package))
         puts "'#{package}' is not in shard.yml."
         exit 1
       end
 
-      deps.delete(YAML.new(package))
-      shard["dependencies"] = YAML.new(deps)
+      deps.delete(YAML::Any.new(package))
+      shard[YAML::Any.new("dependencies")] = YAML::Any.new(deps)
 
       File.write("shard.yml", shard.to_yaml)
       puts "Removed #{package} from shard.yml."
